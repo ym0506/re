@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
+  "short_name": "레시피 앱",
+  "name": "레시피 공유 애플리케이션",
+=======
   "short_name": "React App",
   "name": "Create React App Sample",
+>>>>>>> ed7959b (sec)
   "icons": [
     {
       "src": "favicon.ico",
@@ -22,4 +27,8 @@
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
+<<<<<<< HEAD
+} 
+=======
 }
+>>>>>>> ed7959b (sec)
