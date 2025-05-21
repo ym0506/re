@@ -1,0 +1,261 @@
+@import './variables.scss';
+
+.recipe-detail-page {
+  padding: 0 $spacing-md $spacing-xl;
+  margin-bottom: 70px; // 하단 네비게이션 영역 확보
+  
+  // 레시피 헤더 이미지
+  .recipe-header-image {
+    width: 100%;
+    height: 234px;
+    background-color: $secondary-background;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    
+    .photo-text {
+      color: $white;
+      font-size: $font-huge;
+      font-weight: 700;
+    }
+  }
+  
+  // 레시피 정보 카드
+  .recipe-info-card {
+    background-color: $primary-light;
+    opacity: $opacity-light;
+    border: 1px solid $primary-color;
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+    margin-bottom: $spacing-xl;
+    position: relative;
+    
+    .recipe-title {
+      text-align: center;
+      font-size: $font-lg;
+      font-weight: 800;
+      margin-bottom: $spacing-sm;
+    }
+    
+    .recipe-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: $spacing-lg;
+      margin-bottom: $spacing-md;
+      
+      .recipe-time, .recipe-servings, .recipe-difficulty {
+        display: flex;
+        align-items: center;
+        font-size: $font-md;
+        font-weight: 500;
+        
+        .icon {
+          margin-right: $spacing-xs;
+        }
+      }
+    }
+    
+    .recipe-author {
+      display: flex;
+      align-items: center;
+      margin-top: $spacing-md;
+      
+      .author-image {
+        width: 24px;
+        height: 24px;
+        background-color: $secondary-background;
+        border-radius: 50%;
+        margin-right: $spacing-sm;
+      }
+      
+      .author-name {
+        font-size: $font-sm;
+        font-weight: 500;
+        margin-right: auto;
+      }
+      
+      .subscribe-btn {
+        background-color: $primary-color;
+        opacity: $opacity-full;
+        color: $text-color;
+        font-size: $font-xs;
+        padding: $spacing-xs $spacing-sm;
+        border-radius: $border-radius-sm;
+      }
+    }
+  }
+  
+  // 레시피 섹션 공통
+  .recipe-section {
+    margin-bottom: $spacing-xl;
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacing-md;
+      
+      .icon-container {
+        width: 33px;
+        height: 33px;
+        margin-right: $spacing-sm;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .section-icon {
+          width: 24px;
+          height: 24px;
+        }
+      }
+      
+      .section-title {
+        color: $primary-color;
+        font-size: $font-md;
+        font-weight: 800;
+      }
+    }
+  }
+  
+  // 재료 목록
+  .ingredients-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    
+    .ingredient-item {
+      background-color: $primary-light;
+      opacity: $opacity-high;
+      border-radius: $border-radius-sm;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: $spacing-xs;
+      
+      .ingredient-name {
+        font-size: $font-sm;
+        font-weight: 500;
+        margin-bottom: $spacing-xs;
+      }
+      
+      .ingredient-amount {
+        font-size: $font-xs;
+        color: $text-secondary;
+      }
+    }
+  }
+  
+  // 레시피 설명
+  .recipe-description {
+    background-color: $primary-light;
+    opacity: $opacity-light;
+    border-radius: $border-radius-sm;
+    padding: $spacing-md;
+    font-size: $font-sm;
+    line-height: 1.5;
+  }
+  
+  // 레시피 과정
+  .recipe-steps {
+    .recipe-step {
+      display: flex;
+      margin-bottom: $spacing-md;
+      
+      .step-number {
+        margin-right: $spacing-md;
+        
+        .circle {
+          width: 24px;
+          height: 24px;
+          background-color: $secondary-background;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: $font-md;
+          font-weight: 800;
+        }
+      }
+      
+      .step-content {
+        background-color: $primary-light;
+        opacity: $opacity-light;
+        border-radius: $border-radius-md;
+        padding: $spacing-sm;
+        flex: 1;
+        font-size: $font-sm;
+      }
+    }
+  }
+  
+  // 댓글 섹션
+  .comments-container {
+    background-color: $primary-light;
+    opacity: $opacity-light;
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+    
+    .comment {
+      display: flex;
+      margin-bottom: $spacing-md;
+      
+      .comment-profile {
+        width: 25px;
+        height: 25px;
+        background-color: $white;
+        border-radius: 50%;
+        margin-right: $spacing-sm;
+        flex-shrink: 0;
+      }
+      
+      .comment-bubble {
+        background-color: $white;
+        border-radius: $border-radius-sm;
+        padding: $spacing-sm;
+        
+        .comment-text {
+          font-size: $font-xs;
+          font-weight: 800;
+        }
+      }
+    }
+  }
+  
+  // 댓글 입력 폼
+  .comment-form {
+    display: flex;
+    background-color: $primary-light;
+    opacity: $opacity-light;
+    border-radius: $border-radius-sm;
+    padding: $spacing-xs;
+    
+    .comment-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: $font-xs;
+      font-weight: 800;
+      
+      &::placeholder {
+        color: $text-color;
+      }
+    }
+    
+    .comment-submit {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      
+      .icon {
+        font-size: $font-md;
+      }
+    }
+  }
+} 

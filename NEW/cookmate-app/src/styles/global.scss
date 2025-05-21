@@ -1,0 +1,188 @@
+@import './variables.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.container {
+  position: relative;
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: $background-color;
+  overflow-x: hidden;
+}
+
+input {
+  font-family: 'Inter', sans-serif;
+}
+
+// 상단바 공통 스타일
+.top-bar {
+  width: 100%;
+  height: 33px;
+  background-color: $primary-light;
+  opacity: $opacity-full;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0 $spacing-md;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: $font-sm;
+  color: $primary-color;
+  text-align: center;
+}
+
+// 버튼 스타일
+.btn {
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $border-radius-md;
+  font-weight: 700;
+  
+  &.primary {
+    background-color: $primary-color;
+    color: $white;
+  }
+  
+  &.secondary {
+    background-color: $primary-light;
+    opacity: $opacity-light;
+    color: $text-color;
+  }
+}
+
+// 검색바 스타일
+.search-bar {
+  display: flex;
+  width: 100%;
+  border: 1px solid $text-color;
+  border-radius: $border-radius-md;
+  padding: $spacing-xs;
+  margin: $spacing-md 0;
+  
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: $font-xs;
+  }
+}
+
+// 하단 네비게이션
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  background-color: $primary-light;
+  height: 59px;
+  align-items: center;
+  z-index: 100;
+  
+  .nav-item {
+    text-align: center;
+    font-size: $font-md;
+    font-weight: 500;
+    
+    &.active {
+      color: $primary-color;
+      font-weight: 700;
+    }
+  }
+}
+
+// 카테고리 스타일
+.category-container {
+  display: flex;
+  overflow-x: auto;
+  padding: $spacing-sm 0;
+  margin: $spacing-sm 0;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .category {
+    background-color: #D9D9D9;
+    border-radius: $border-radius-lg;
+    padding: $spacing-xs $spacing-sm;
+    margin-right: $spacing-sm;
+    white-space: nowrap;
+    font-size: $font-xs;
+  }
+}
+
+// 섹션 제목
+.section-title {
+  color: $primary-color;
+  font-size: $font-xxl;
+  font-weight: 600;
+  text-align: center;
+  margin: $spacing-lg 0;
+}
+
+// 신규 레시피 배지
+.new-badge {
+  background-color: #F5F5F5;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $font-xs;
+  font-weight: 800;
+}
+
+// 메뉴 카테고리 버튼
+.menu-category {
+  background-color: $primary-light;
+  opacity: $opacity-high;
+  border-radius: $border-radius-sm;
+  width: 85px;
+  height: 39px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: $spacing-sm;
+  font-size: $font-md;
+}
+
+// 페이지 컨텐츠 여백
+.page-content {
+  padding: $spacing-sm $spacing-md;
+  padding-bottom: 80px; // 하단 네비게이션 영역 확보
+}
+
+/* 필요한 경우 추가 스타일을 여기에 작성합니다 */ 
