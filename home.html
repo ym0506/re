@@ -1,0 +1,153 @@
+<html><head>
+    <meta charset="utf-8"/>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B600%3B700%3B800" onload="this.rel='stylesheet'" rel="stylesheet"/>
+    <title>Stitch Design</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .primary-color {
+          color: #e92933;
+        }
+        .bg-primary-color {
+          background-color: #e92933;
+        }
+        .border-primary-color {
+          border-color: #e92933;
+        }
+        .placeholder-primary-color::placeholder {
+          color: #e92933;
+          opacity: 0.5;
+        }
+        .nav-item-active svg {
+          color: #e92933;
+        }
+        .nav-item-active p {
+          color: #e92933;
+        }
+      </style>
+    <style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+      </style>
+      </head>
+    <body class="bg-white">
+    <div class="relative flex size-full min-h-screen flex-col justify-between group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+    <div class="flex-grow">
+    <div class="sticky top-0 z-10 bg-white shadow-sm">
+    <div class="flex items-center p-4 pb-3 justify-between">
+    <h1 class="text-gray-900 text-xl font-bold tracking-tight flex-1 text-center pl-12">Recipes</h1>
+    <div class="flex w-12 items-center justify-end">
+    <button class="flex items-center justify-center rounded-full h-10 w-10 hover:bg-gray-100 text-gray-700">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+    </svg>
+    </button>
+    </div>
+    </div>
+    <div class="px-4 pb-3">
+    <label class="flex flex-col min-w-40 h-12 w-full">
+    <div class="flex w-full flex-1 items-stretch rounded-xl h-full bg-gray-100">
+    <div class="text-gray-500 flex items-center justify-center pl-4">
+    <svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+    </svg>
+    </div>
+    <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-xl text-gray-900 focus:outline-0 focus:ring-0 border-none bg-gray-100 h-full placeholder:text-gray-500 px-3 text-base font-normal leading-normal" placeholder="Search recipes, ingredients, chefs..." value=""/>
+    </div>
+    </label>
+    </div>
+    </div>
+    <h2 class="text-gray-900 text-xl font-semibold leading-tight tracking-tight px-4 pb-3 pt-5">Popular Recipes</h2>
+    <div class="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden pl-4 pr-1 pb-4 gap-4">
+    <div class="flex flex-col gap-2 rounded-xl min-w-[240px] w-[240px] bg-white overflow-hidden shadow-sm border border-gray-200">
+    <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAR7lwtfO4wKYIap3sPwGn16UNReUL74QZJy1aoAu8tZr9E5cEwjJl5AbNl3gXGMOOA7G-Xg4_cWrp9xdoPQjbA94DzxHzLdAsdalrN2xFAcZySB5ohPet8thYZrP3jU5LC_uX74EH4oAov5oK0l7_PVJ3QZ8rouOdc5k1bXD_OuXsvkyyHEB9CSbWXUseUSYO87ecZmWlAB3NnvxUs0n4DN_65zUuyF4TA3dsceny8V9M3iVWFRJ4T8fbXot33ut76IPQ053S4nEo");'></div>
+    <div class="p-3 pt-1">
+    <p class="text-gray-900 text-base font-semibold leading-normal">Delicious Pasta</p>
+    <p class="text-gray-600 text-sm font-normal leading-normal">Easy to make</p>
+    </div>
+    </div>
+    <div class="flex flex-col gap-2 rounded-xl min-w-[240px] w-[240px] bg-white overflow-hidden shadow-sm border border-gray-200">
+    <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDR8jxGQpLu7eDLy88o6E0D6hgRlxR_SSLou8CHscmLpVXuXlGuHGwTLqzKuQHYbZh2duBIMXtCfGZqMfbKkurIeEY6hLejQXE49o78KgBwRsU70xDFdMrPwXxQRGciavumBUy30Xr64gRZd3uoGbhKyGQ84dk9eJx_v8BVOzC1nOeVFkZZaX_-fgibGTkjjAX9HxO2N1bna2mVQst9N0j9JLro8kUMpvenx6uy4RSM_fCdmxQSLDbJ7v41cWX-ThPl6CHurbWFVpQ");'></div>
+    <div class="p-3 pt-1">
+    <p class="text-gray-900 text-base font-semibold leading-normal">Tasty Salad</p>
+    <p class="text-gray-600 text-sm font-normal leading-normal">Fresh ingredients</p>
+    </div>
+    </div>
+    <div class="flex flex-col gap-2 rounded-xl min-w-[240px] w-[240px] bg-white overflow-hidden shadow-sm border border-gray-200">
+    <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD3nXVXe3uwtA5HEkHQPYGATlh5aoWmCZajYDBEUMnIwVo4ul3ckdEII-xcUyOcCXm3MupaunyutQUvvY-UrGA-0qdMzdGQar48GgDGkxgN9qGiXmguq3jBNsEk7zIrKugCT1YMXoARyWipSBb7ioFxLuSYfZPnu8smOr5Lo__vuP3suvo99RN5E3GYPJ245px71ucVb8J0q9viqYFfHFuczseZEvIELSQsVdYDUcTvfVb7fsU3FYWw7IzAd8nwV-mjfQQoqOo_Abw");'></div>
+    <div class="p-3 pt-1">
+    <p class="text-gray-900 text-base font-semibold leading-normal">Healthy Smoothie</p>
+    <p class="text-gray-600 text-sm font-normal leading-normal">Quick and nutritious</p>
+    </div>
+    </div>
+    </div>
+    <h2 class="text-gray-900 text-xl font-semibold leading-tight tracking-tight px-4 pb-3 pt-4">New Recipes</h2>
+    <div class="px-4 space-y-4 pb-4">
+    <div class="flex items-center justify-between gap-4 rounded-xl p-3 bg-white shadow-sm border border-gray-200">
+    <div class="flex flex-col gap-0.5 flex-[2_2_0px]">
+    <span class="inline-block bg-primary-color/10 text-primary-color text-xs font-semibold px-2 py-0.5 rounded-full self-start mb-1">New</span>
+    <p class="text-gray-900 text-base font-semibold leading-tight">Spicy Chicken Curry</p>
+    <p class="text-gray-600 text-sm font-normal leading-normal">By Chef Isabella</p>
+    </div>
+    <div class="w-20 h-20 bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex-shrink-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCa7p5pYiPnZk4CNx3vQJRKS04z7KmdAAS8tPq96Kn7ugrpZiPPAZAZOqRbEjENlg3VOc-KEC9j0EUpKH_sR7KZJe1RyElm-7o23AEh6rcsGUnLwIOcg_KMiqU7ZP6Za9VeQmShd7BdqbcQjI6xoDSxwb0ZiKADPBMR-aFELGdhJ1ghmiV-Aga8muxeBpV2B8frNsqyP79l_dX-70NIsLLAsXNMHZI51wggYAPmkPCAWPoUCd5qrHdzMKseaCo-rCfP6HjeJZCXD4");'></div>
+    </div>
+    <div class="flex items-center justify-between gap-4 rounded-xl p-3 bg-white shadow-sm border border-gray-200">
+    <div class="flex flex-col gap-0.5 flex-[2_2_0px]">
+    <span class="inline-block bg-primary-color/10 text-primary-color text-xs font-semibold px-2 py-0.5 rounded-full self-start mb-1">New</span>
+    <p class="text-gray-900 text-base font-semibold leading-tight">Vegan Tacos</p>
+    <p class="text-gray-600 text-sm font-normal leading-normal">By Chef Ethan</p>
+    </div>
+    <div class="w-20 h-20 bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex-shrink-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDuFDSlf2SJFP-Ly2KzmMwNRXyTT6gJJx6cf8u_7lLAtnEbFUY9W5SWvw97sodiG7rjkkeLqdT1YyAaMer3gRgFSKq1Bz7jjBupD_eaM0TKCNnO6ZOZNmcjRPk6NoDhI_eSlPRdfU0hhb8cqnEJ2WN3iKXHPUWKHj1QhNCX2idsiki9ORawm9oxkZ6wpGjDivIE4CHFaGF99RTkN2_w4EkuJkxyFk0_v38CDgc9GnbIsD0gZxzg5oO7AdfNL_xyXwyO7-a1U3WdVBA");'></div>
+    </div>
+    <div class="flex items-center justify-between gap-4 rounded-xl p-3 bg-white shadow-sm border border-gray-200">
+    <div class="flex flex-col gap-0.5 flex-[2_2_0px]">
+    <span class="inline-block bg-primary-color/10 text-primary-color text-xs font-semibold px-2 py-0.5 rounded-full self-start mb-1">New</span>
+    <p class="text-gray-900 text-base font-semibold leading-tight">Chocolate Cake</p>
+    <p class="text-gray-600 text-sm font-normal leading-normal">By Chef Olivia</p>
+    </div>
+    <div class="w-20 h-20 bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex-shrink-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDqdFvGGgMtvBzfP9H7tkj61cSRL8CjoL0bt9ykifc1Xq-7HD4VjdgrkjdOLW8PBakkEYMwAR1hHIkoBk0Wk9fJYufxroiti7xlWvjOVQUxtXnDn89ILf7A5HsOKdaE_sRcDhpJ5MDj3NXeOeurcIrBQwAtl-jgMCSwdaFtSDip_yfIF5HG8KYMZ7pn31Yf7VSwvlf90YPDx2xqCPfoR6PVX6N9XUZavlQph7hLmc0WiuVu_mYBia7BTCUcRmVQGVyS2M1QWzKGWFA");'></div>
+    </div>
+    </div>
+    </div>
+    <div class="sticky bottom-0 z-10">
+    <div class="flex gap-2 border-t border-gray-200 bg-white px-4 pb-3 pt-2 shadow-[0_-2px_5px_-1px_rgba(0,0,0,0.05)]">
+    <a class="flex flex-1 flex-col items-center justify-end gap-0.5 rounded-full text-gray-700 nav-item-active" href="#">
+    <div class="flex h-7 items-center justify-center">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path>
+    </svg>
+    </div>
+    <p class="text-xs font-medium leading-normal tracking-[-0.01em]">Home</p>
+    </a>
+    <a class="flex flex-1 flex-col items-center justify-end gap-0.5 text-gray-500 hover:text-primary-color" href="#">
+    <div class="flex h-7 items-center justify-center">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+    </svg>
+    </div>
+    <p class="text-xs font-medium leading-normal tracking-[-0.01em]">Explore</p>
+    </a>
+    <a class="flex flex-1 flex-col items-center justify-end gap-0.5 text-gray-500 hover:text-primary-color" href="#">
+    <div class="flex h-7 items-center justify-center">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H208V208Zm-32-80a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z"></path>
+    </svg>
+    </div>
+    <p class="text-xs font-medium leading-normal tracking-[-0.01em]">Create</p>
+    </a>
+    <a class="flex flex-1 flex-col items-center justify-end gap-0.5 text-gray-500 hover:text-primary-color" href="#">
+    <div class="flex h-7 items-center justify-center">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path>
+    </svg>
+    </div>
+    <p class="text-xs font-medium leading-normal tracking-[-0.01em]">Profile</p>
+    </a>
+    </div>
+    <div class="h-safe-area-bottom bg-white"></div>
+    </div>
+    </div>
+    
+    </body></html>

@@ -1,0 +1,129 @@
+<html><head>
+    <meta charset="utf-8"/>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800" onload="this.rel='stylesheet'" rel="stylesheet"/>
+    <title>Stitch Design</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+          .filter-chip-active {
+            background-color: #e92933;
+            color: white;
+          }
+          .filter-chip {
+            background-color: #f4f0f0;
+            color: #181111;
+          }
+          .filter-chip:hover {
+            background-color: #fce8e9;}
+        </style>
+    <style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+      </style>
+      </head>
+    <body class="bg-white">
+    <div class="relative flex size-full min-h-screen flex-col justify-between group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+    <div class="flex-grow">
+    <header class="sticky top-0 z-10 bg-white shadow-sm">
+    <div class="flex items-center p-4 pb-3">
+    <h1 class="text-[#181111] text-xl font-bold leading-tight tracking-tight flex-1 text-center">Recipes</h1>
+    <button class="flex items-center justify-center rounded-full h-10 w-10 bg-[#e92933] text-white hover:bg-[#c7222a]">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+    </svg>
+    </button>
+    </div>
+    <div class="px-4 pb-4 pt-1">
+    <label class="flex flex-col min-w-40 h-12 w-full">
+    <div class="flex w-full flex-1 items-stretch rounded-lg h-full shadow-sm">
+    <div class="text-[#886364] flex border-none bg-[#f9f9f9] items-center justify-center pl-4 rounded-l-lg border-r-0">
+    <svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+    </svg>
+    </div>
+    <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#181111] focus:outline-0 focus:ring-2 focus:ring-[#e92933] border-none bg-[#f9f9f9] focus:border-none h-full placeholder:text-[#a08c8d] px-3 rounded-l-none border-l-0 text-base font-normal leading-normal" placeholder="Search recipes, ingredients..." value=""/>
+    </div>
+    </label>
+    </div>
+    </header>
+    <main class="pb-24">
+    <section class="px-4 pt-4 pb-2">
+    <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+    <button class="filter-chip-active flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">All</button>
+    <button class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Breakfast</button>
+    <button class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Lunch</button>
+    <button class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Dinner</button>
+    <button class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Dessert</button>
+    <button class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Snacks</button>
+    </div>
+    </section>
+    <section class="px-4 pt-3 pb-2">
+    <h2 class="text-[#181111] text-lg font-semibold leading-tight tracking-tight mb-2">Sort by</h2>
+    <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+    <button class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Newest</button>
+    <button class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Oldest</button>
+    <button class="filter-chip-active flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Rating</button>
+    <button class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Popularity</button>
+    <button class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors">Cook Time</button>
+    </div>
+    </section>
+    <section class="px-4 pt-4">
+    <div class="grid grid-cols-2 gap-4">
+    <div class="flex flex-col gap-2 pb-3 group cursor-pointer">
+    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl shadow-md overflow-hidden transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBWB-qeZnyFdVNYsXc8Dol5EA5l9Eo8N7Fgptvczh8_GsBhjYvR3OyH82o2yAVeulgEBjNoYiFT7tyH3SVwemQKKvOWJapMCwgdkoR12DagKZR6-7v-RN5LS5eXgOB9HRV-HNpCAhNMMI7q8Ej8QjN8kzKiDuJgXZ7kqQHlkrhf4Z53BzkfZwiTTX9tqe4QRJnnUxtPW0s-IsV4bpqZbmFznvMI2oBfz2TRSGvBB9GGO2gRXM1tdGBkYDD0uM848LKpC-9is8ls2NY");'></div>
+    <p class="text-[#181111] text-base font-semibold leading-tight">Savory Breakfast Bowl</p>
+    <p class="text-xs text-[#886364]">15 min • Easy</p>
+    </div>
+    <div class="flex flex-col gap-2 pb-3 group cursor-pointer">
+    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl shadow-md overflow-hidden transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBc7s5wThW4Qmmp6AWBbeiEzSVd_9U0tFYxR19bi23mjq70Coa0oIbeWX9P2Wv7xAta2g-VYrET6RAcLSSkVuYPj76avf-OKJFcWDFm31x1onGPQvokb8Y6ZmPgKMaenb6mULxqbyziiDXGTB52PXJmC6mjPdeB7WxbT0DxbZDqzt3JIBESNtW7oYfou5y6KBrsUDOn7LWeJfVS6JmGEmsJPQqQhJZMgQOXlF0LPYIfLlYQfE0PCwcTsOzddSV42YahKVD4RrBBx_U");'></div>
+    <p class="text-[#181111] text-base font-semibold leading-tight">Quick Lunch Salad</p>
+    <p class="text-xs text-[#886364]">10 min • Easy</p>
+    </div>
+    <div class="flex flex-col gap-2 pb-3 group cursor-pointer">
+    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl shadow-md overflow-hidden transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDaRPt-2cpjgxvVI_437wCQ913LPESAcgLWRyeb-k4jHCyh-xaOAxZKVHmDPTrtFsvZkEDDm4H4XsQ-aGxWxM0eiVQmarH-z0dvNRG09TacxsEJbALvzgbxuJai0ccU-Mh-KE35qZrJ9gS3KrT_Tr9MrnoN1f9K01s-qC__DHIuXoDue_cIcvvTky63xynCb1hqaGE32bzOmrjdYawweVywQ7McG_i0eTkbm-_1BPuD-rhiorI5DXRQt63o1VyQzgrPmrmxFE-Fr4M");'></div>
+    <p class="text-[#181111] text-base font-semibold leading-tight">Dinner with Salmon</p>
+    <p class="text-xs text-[#886364]">30 min • Medium</p>
+    </div>
+    <div class="flex flex-col gap-2 pb-3 group cursor-pointer">
+    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl shadow-md overflow-hidden transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChw9lviE9Q9Pqzp7ytJ_UHtRFOtQvMsm2dvr1OUmwjo5G3jAjxb0oz-TjyQZovz26nW0ABbWpkMAUHWE9SQ4o3b2VfBswhZQwINtkexIJZ36cZO-ENn1yPTQZstxmYPtpjM80bP6nTKlYa7ZkHVfNM2hl0BSCUyTa8cLXMjFbLQORNOL_j-htvrzntsawgS2a_YUrBrP45DE-Yh58zeqRNKtwLYTNdnRt62ia632ooPuxueza8ncec5Vg8SoNrIBobnE-UHG1jJIE");'></div>
+    <p class="text-[#181111] text-base font-semibold leading-tight">Chocolate Cake</p>
+    <p class="text-xs text-[#886364]">1 hr • Hard</p>
+    </div>
+    </div>
+    </section>
+    </main>
+    </div>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-[#f4f0f0] shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+    <div class="flex justify-around items-center h-16 px-2">
+    <a class="flex flex-col items-center justify-center gap-1 text-[#886364] hover:text-[#e92933] transition-colors w-1/4" href="#">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path>
+    </svg>
+    <p class="text-xs font-medium tracking-[0.015em]">Home</p>
+    </a>
+    <a class="flex flex-col items-center justify-center gap-1 text-[#e92933] w-1/4" href="#">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M240,64V192a16,16,0,0,1-16,16H160a24,24,0,0,0-24,24,8,8,0,0,1-16,0,24,24,0,0,0-24-24H32a16,16,0,0,1-16-16V64A16,16,0,0,1,32,48H88a32,32,0,0,1,32,32v88a8,8,0,0,0,16,0V80a32,32,0,0,1,32-32h56A16,16,0,0,1,240,64Z"></path>
+    </svg>
+    <p class="text-xs font-bold tracking-[0.015em]">Recipes</p>
+    </a>
+    <a class="flex flex-col items-center justify-center gap-1 text-[#886364] hover:text-[#e92933] transition-colors w-1/4" href="#">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H208V208Zm-32-80a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z"></path>
+    </svg>
+    <p class="text-xs font-medium tracking-[0.015em]">Create</p>
+    </a>
+    <a class="flex flex-col items-center justify-center gap-1 text-[#886364] hover:text-[#e92933] transition-colors w-1/4" href="#">
+    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+    <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path>
+    </svg>
+    <p class="text-xs font-medium tracking-[0.015em]">Profile</p>
+    </a>
+    </div>
+    <div class="pb-safe-bottom bg-white"></div>
+    </nav>
+    </div>
+    
+    </body></html>

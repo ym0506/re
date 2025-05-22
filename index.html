@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+    <title>레시피 앱</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="src/index.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-color': '#e92933',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+            font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+            overscroll-behavior: none;
+        }
+
+        .primary-color {
+            color: #e92933;
+        }
+
+        .bg-primary-color {
+            background-color: #e92933;
+        }
+
+        .border-primary-color {
+            border-color: #e92933;
+        }
+
+        .filter-chip-active {
+            background-color: #e92933;
+            color: white;
+        }
+
+        .filter-chip {
+            background-color: #f4f0f0;
+            color: #181111;
+        }
+
+        .filter-chip:hover {
+            background-color: #fce8e9;
+        }
+
+        .custom-checkbox:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+
+        .text-e92933 {
+            color: #e92933;
+        }
+
+        .border-b-e92933 {
+            border-bottom-color: #e92933;
+        }
+
+        .hover\:bg-e92933\/10:hover {
+            background-color: rgba(233, 41, 51, 0.1);
+        }
+
+        .hover\:border-b-e92933\/50:hover {
+            border-bottom-color: rgba(233, 41, 51, 0.5);
+        }
+
+        .hover\:text-e92933:hover {
+            color: #e92933;
+        }
+
+        .pb-safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .form-input {
+            border: 1px solid #E5E7EB;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .form-input:focus {
+            border-color: #e92933;
+            box-shadow: 0 0 0 2px rgba(233, 41, 51, 0.2);
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: #9CA3AF;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #root {
+            height: 100dvh;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Navbar 컴포넌트
+        function Navbar({ currentPage, navigateTo }) {
+            return (
+                <div className="sticky bottom-0 z-10">
+                    <div className="flex gap-2 border-t border-gray-200 bg-white px-4 pb-3 pt-2 shadow-[0_-2px_5px_-1px_rgba(0,0,0,0.05)]">
+                        <a
+                            className={`flex flex-1 flex-col items-center justify-end gap-0.5 rounded-full ${currentPage === 'home' ? 'text-e92933 nav-item-active' : 'text-gray-700'}`}
+                            onClick={() => navigateTo('home')}
+                        >
+                            <div className="flex h-7 items-center justify-center">
+                                <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                    <path d={currentPage === 'home'
+                                        ? "M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48,.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"
+                                        : "M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"
+                                    }></path>
+                                </svg>
+                            </div>
+                            <p className="text-xs font-medium leading-normal tracking-[-0.01em]">홈</p>
+                        </a>
+                        <a
+                            className={`flex flex-1 flex-col items-center justify-end gap-0.5 ${currentPage === 'recipes' ? 'text-e92933 nav-item-active' : 'text-gray-500 hover:text-primary-color'}`}
+                            onClick={() => navigateTo('recipes')}
+                        >
+                            <div className="flex h-7 items-center justify-center">
+                                <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                    <path d={currentPage === 'recipes'
+                                        ? "M240,64V192a16,16,0,0,1-16,16H160a24,24,0,0,0-24,24,8,8,0,0,1-16,0,24,24,0,0,0-24-24H32a16,16,0,0,1-16-16V64A16,16,0,0,1,32,48H88a32,32,0,0,1,32,32v88a8,8,0,0,0,16,0V80a32,32,0,0,1,32-32h56A16,16,0,0,1,240,64Z"
+                                        : "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
+                                    }></path>
+                                </svg>
+                            </div>
+                            <p className="text-xs font-medium leading-normal tracking-[-0.01em]">레시피</p>
+                        </a>
+                        <a
+                            className={`flex flex-1 flex-col items-center justify-end gap-0.5 ${currentPage === 'create' ? 'text-e92933 nav-item-active' : 'text-gray-500 hover:text-primary-color'}`}
+                            onClick={() => navigateTo('create')}
+                        >
+                            <div className="flex h-7 items-center justify-center">
+                                <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                    <path d={currentPage === 'create'
+                                        ? "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm-32,96a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z"
+                                        : "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H208V208Zm-32-80a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z"
+                                    }></path>
+                                </svg>
+                            </div>
+                            <p className="text-xs font-medium leading-normal tracking-[-0.01em]">추가</p>
+                        </a>
+                        <a
+                            className={`flex flex-1 flex-col items-center justify-end gap-0.5 ${currentPage === 'profile' ? 'text-e92933 nav-item-active' : 'text-gray-500 hover:text-primary-color'}`}
+                            onClick={() => navigateTo('profile')}
+                        >
+                            <div className="flex h-7 items-center justify-center">
+                                <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                    <path d={currentPage === 'profile'
+                                        ? "M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"
+                                        : "M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"
+                                    }></path>
+                                </svg>
+                            </div>
+                            <p className="text-xs font-medium leading-normal tracking-[-0.01em]">프로필</p>
+                        </a>
+                    </div>
+                    <div className="h-safe-area-bottom bg-white"></div>
+                </div>
+            );
+        }
+
+        // Context API 생성
+        const RecipeContext = React.createContext({
+            recipes: [],
+            setRecipes: () => { },
+            user: null,
+            setUser: () => { }
+        });
+
+        // Home 페이지 컴포넌트
+        function Home({ recipes, navigateTo }) {
+            const [searchQuery, setSearchQuery] = React.useState('');
+
+            // 인기 레시피 필터링 (평점 기준)
+            const popularRecipes = [...recipes].sort((a, b) => b.rating - a.rating).slice(0, 3);
+
+            // 새로운 레시피 필터링
+            const newRecipes = recipes.filter(recipe => recipe.isNew).slice(0, 3);
+
+            return (
+                <div className="flex-grow">
+                    <div className="sticky top-0 z-10 bg-white shadow-sm">
+                        <div className="flex items-center p-4 pb-3 justify-between">
+                            <h1 className="text-gray-900 text-xl font-bold tracking-tight flex-1 text-center pl-12">레시피</h1>
+                            <div className="flex w-12 items-center justify-end">
+                                <button
+                                    className="flex items-center justify-center rounded-full h-10 w-10 hover:bg-gray-100 text-gray-700"
+                                    onClick={() => navigateTo('create')}
+                                >
+                                    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div className="px-4 pb-3">
+                            <label className="flex flex-col min-w-40 h-12 w-full">
+                                <div className="flex w-full flex-1 items-stretch rounded-xl h-full bg-gray-100">
+                                    <div className="text-gray-500 flex items-center justify-center pl-4">
+                                        <svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                                        </svg>
+                                    </div>
+                                    <input
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-xl text-gray-900 focus:outline-0 focus:ring-0 border-none bg-gray-100 h-full placeholder:text-gray-500 px-3 text-base font-normal leading-normal"
+                                        placeholder="레시피, 재료, 셰프 검색..."
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <h2 className="text-gray-900 text-xl font-semibold leading-tight tracking-tight px-4 pb-3 pt-5">인기 레시피</h2>
+                    <div className="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pl-4 pr-1 pb-4 gap-4">
+                        {popularRecipes.map(recipe => (
+                            <div
+                                key={recipe.id}
+                                className="flex flex-col gap-2 rounded-xl min-w-[240px] w-[240px] bg-white overflow-hidden shadow-sm border border-gray-200 cursor-pointer"
+                                onClick={() => navigateTo('recipe-detail', recipe)}
+                            >
+                                <div
+                                    className="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover"
+                                    style={{ backgroundImage: `url("${recipe.image}")` }}
+                                ></div>
+                                <div className="p-3 pt-1">
+                                    <p className="text-gray-900 text-base font-semibold leading-normal">{recipe.name}</p>
+                                    <p className="text-gray-600 text-sm font-normal leading-normal">{recipe.cookTime} • {recipe.difficulty}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <h2 className="text-gray-900 text-xl font-semibold leading-tight tracking-tight px-4 pb-3 pt-4">새로운 레시피</h2>
+                    <div className="px-4 space-y-4 pb-4">
+                        {newRecipes.map(recipe => (
+                            <div
+                                key={recipe.id}
+                                className="flex items-center justify-between gap-4 rounded-xl p-3 bg-white shadow-sm border border-gray-200 cursor-pointer"
+                                onClick={() => navigateTo('recipe-detail', recipe)}
+                            >
+                                <div className="flex flex-col gap-0.5 flex-[2_2_0px]">
+                                    <span className="inline-block bg-primary-color/10 text-primary-color text-xs font-semibold px-2 py-0.5 rounded-full self-start mb-1">New</span>
+                                    <p className="text-gray-900 text-base font-semibold leading-tight">{recipe.name}</p>
+                                    <p className="text-gray-600 text-sm font-normal leading-normal">By {recipe.author}</p>
+                                </div>
+                                <div
+                                    className="w-20 h-20 bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex-shrink-0"
+                                    style={{ backgroundImage: `url("${recipe.image}")` }}
+                                ></div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <Navbar currentPage="home" navigateTo={navigateTo} />
+                </div>
+            );
+        }
+
+        // App 컴포넌트
+        function App() {
+            const [currentPage, setCurrentPage] = React.useState('home');
+            const [currentRecipe, setCurrentRecipe] = React.useState(null);
+            const [recipes, setRecipes] = React.useState([]);
+            const [user, setUser] = React.useState({
+                id: 1,
+                username: 'sophia',
+                displayName: 'Sophia',
+                joinedYear: '2021',
+                recipeCount: 12,
+                likesCount: 24,
+                followersCount: 10,
+                profileImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCLLFCAlXCeQ9RcgqHiRAsBr1fPJSKSqbcbiLCK5JlkXnflvENxJn7MIVBa8TqV7stJLjF7d2Ql-pL7NNai_I5DQsnMENNq2xry9vy3-v02ArzgNRQNY2-KIifC_RcVMzcJlBH5O7dPhdYg6LQa2It7IT_Bs3jj3Ba9aFb5qQGhhgCcGOAIBokCxWb3uIUuIuWcb7OYolxhEHIUqb9LIhsvDzNylhxFgJyVzdk4IXR6OdB80mPVh6V6VcMDTPuSgGY6X6g6tCWPrgI'
+            });
+
+            // 초기 레시피 데이터 로드
+            React.useEffect(() => {
+                const initialRecipes = [
+                    {
+                        id: 1,
+                        name: '크리미 토마토 파스타',
+                        description: '풍부한 크림과 토마토 소스가 어우러진 파스타 요리',
+                        cookTime: '35 min',
+                        difficulty: 'Easy',
+                        rating: 4.5,
+                        reviewCount: 23,
+                        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAYZzG17Pd1pNxnjSq7wtKwLFL3fKVt08TVSqvi-ThuDvqm1IfdkIsldeRL1myiyIqPnOVliYhDeKO2-1x1SeJGMTRTSUY2ZjsxalcBSd9rgspB1j7xwfKjUliq5gINMObPPGQXJQsXGUXRTCdKRtJXkpi-0oi8NrUZYGw3_fO-M7bvDTu1rui9Nww-Xvt3WRTjbprnLYoIeMyIKs077HJyH76tRW6kNAllA5T-K8b2LMmHtpcP3Zv_GZMw47AzJBlSWeC2SkJi6b0',
+                        ingredients: [
+                            '파스타 1lb',
+                            '생크림 1컵',
+                            '다진 토마토 캔 1개',
+                            '파마산 치즈 1/2컵',
+                            '소금, 후추 약간'
+                        ],
+                        steps: [
+                            { name: '파스타 삶기', time: '10 min', icon: 'cooking' },
+                            { name: '소스 준비하기', time: '5 min', icon: 'sauce' },
+                            { name: '재료 섞고 졸이기', time: '15 min', icon: 'cooking' },
+                            { name: '완성 및 서빙', time: '5 min', icon: 'sauce' }
+                        ],
+                        category: 'dinner',
+                        isNew: true,
+                        author: 'Chef Isabella'
+                    },
+                    {
+                        id: 2,
+                        name: '맛있는 파스타',
+                        description: '만들기 쉬운 파스타 요리',
+                        cookTime: '20 min',
+                        difficulty: 'Easy',
+                        rating: 4.2,
+                        reviewCount: 15,
+                        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAR7lwtfO4wKYIap3sPwGn16UNReUL74QZJy1aoAu8tZr9E5cEwjJl5AbNl3gXGMOOA7G-Xg4_cWrp9xdoPQjbA94DzxHzLdAsdalrN2xFAcZySB5ohPet8thYZrP3jU5LC_uX74EH4oAov5oK0l7_PVJ3QZ8rouOdc5k1bXD_OuXsvkyyHEB9CSbWXUseUSYO87ecZmWlAB3NnvxUs0n4DN_65zUuyF4TA3dsceny8V9M3iVWFRJ4T8fbXot33ut76IPQ053S4nEo',
+                        category: 'dinner',
+                        isNew: false,
+                        author: 'Chef Ethan'
+                    },
+                    {
+                        id: 3,
+                        name: '맛있는 샐러드',
+                        description: '신선한 재료로 만든 샐러드',
+                        cookTime: '10 min',
+                        difficulty: 'Easy',
+                        rating: 4.0,
+                        reviewCount: 8,
+                        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDR8jxGQpLu7eDLy88o6E0D6hgRlxR_SSLou8CHscmLpVXuXlGuHGwTLqzKuQHYbZh2duBIMXtCfGZqMfbKkurIeEY6hLejQXE49o78KgBwRsU70xDFdMrPwXxQRGciavumBUy30Xr64gRZd3uoGbhKyGQ84dk9eJx_v8BVOzC1nOeVFkZZaX_-fgibGTkjjAX9HxO2N1bna2mVQst9N0j9JLro8kUMpvenx6uy4RSM_fCdmxQSLDbJ7v41cWX-ThPl6CHurbWFVpQ',
+                        category: 'lunch',
+                        isNew: false,
+                        author: 'Chef Olivia'
+                    }
+                ];
+                setRecipes(initialRecipes);
+            }, []);
+
+            // 페이지 이동 함수
+            const navigateTo = (page, recipe = null) => {
+                setCurrentPage(page);
+                if (recipe) {
+                    setCurrentRecipe(recipe);
+                }
+            };
+
+            // 레시피 추가 함수
+            const addRecipe = (newRecipe) => {
+                const recipeWithId = {
+                    ...newRecipe,
+                    id: recipes.length + 1,
+                    rating: 0,
+                    reviewCount: 0,
+                    isNew: true,
+                    author: user.displayName
+                };
+                setRecipes([recipeWithId, ...recipes]);
+                navigateTo('home');
+            };
+
+            // 현재 페이지에 따라 컴포넌트 렌더링
+            return (
+                <RecipeContext.Provider value={{ recipes, setRecipes, user, setUser }}>
+                    <div className="relative flex size-full min-h-screen flex-col justify-between overflow-x-hidden">
+                        <Home recipes={recipes} navigateTo={navigateTo} />
+                    </div>
+                </RecipeContext.Provider>
+            );
+        }
+
+        // 앱 렌더링
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
