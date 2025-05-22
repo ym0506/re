@@ -1,0 +1,409 @@
+@import './variables.scss';
+
+.add-recipe-page {
+  padding: 0 $spacing-md $spacing-xl;
+  margin-bottom: 70px; // 하단 네비게이션 영역 확보
+  
+  // 헤더 영역
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: $spacing-xl;
+    position: relative;
+    
+    .header-bg-ellipse {
+      position: absolute;
+      width: 102px;
+      height: 102px;
+      background-color: $primary-light;
+      border-radius: 50%;
+      opacity: 1;
+      z-index: -1;
+      top: 5px;
+      left: calc(50% - 120px);
+    }
+    
+    .header-bg-ellipse-2 {
+      position: absolute;
+      width: 119px;
+      height: 119px;
+      background-color: #F6E4F2;
+      border-radius: 50%;
+      opacity: 1;
+      z-index: -1;
+      top: 35px;
+      left: calc(50% - 40px);
+    }
+    
+    .header-title {
+      color: $primary-color;
+      font-size: $font-lg;
+      font-weight: 800;
+      text-align: center;
+      margin-top: $spacing-xl;
+      margin-bottom: $spacing-md;
+    }
+    
+    .logo-text {
+      font-size: $font-sm;
+      font-weight: 800;
+      color: $primary-color;
+      margin-bottom: $spacing-md;
+    }
+  }
+  
+  // 메인 이미지 업로드
+  .main-image-upload {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: $spacing-xl;
+    
+    .image-preview {
+      width: 200px;
+      height: 200px;
+      border-radius: $border-radius-md;
+      background-color: $secondary-background;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: $spacing-sm;
+      
+      &:hover .upload-overlay {
+        opacity: 1;
+      }
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .upload-text {
+        color: $text-secondary;
+        font-size: $font-md;
+        text-align: center;
+      }
+      
+      .upload-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s;
+        cursor: pointer;
+      }
+    }
+    
+    input[type="file"] {
+      display: none;
+    }
+    
+    .upload-label {
+      font-size: $font-xs;
+      color: $text-secondary;
+      cursor: pointer;
+    }
+  }
+  
+  // 폼 영역
+  .form-section {
+    margin-bottom: $spacing-xl;
+    
+    .section-title {
+      color: $primary-color;
+      font-size: $font-md;
+      font-weight: 700;
+      margin-bottom: $spacing-md;
+    }
+    
+    .input-field {
+      margin-bottom: $spacing-md;
+      
+      input, select, textarea {
+        width: 100%;
+        padding: $spacing-sm;
+        border-radius: $border-radius-sm;
+        border: none;
+        background-color: $primary-light;
+        opacity: $opacity-light;
+        font-size: $font-xs;
+        
+        &::placeholder {
+          color: darken($text-secondary, 20%);
+          opacity: 0.8;
+        }
+        
+        &:focus {
+          outline: none;
+          border: 1px solid $primary-color;
+        }
+      }
+      
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+    }
+    
+    // 카테고리 선택
+    .category-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+      margin-bottom: $spacing-md;
+      
+      .category-option {
+        background-color: $primary-light;
+        opacity: $opacity-high;
+        padding: $spacing-xs $spacing-sm;
+        border-radius: $border-radius-sm;
+        font-size: $font-xs;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        
+        &.selected {
+          background-color: $primary-color;
+          color: $white;
+          opacity: 1;
+        }
+        
+        .category-image {
+          width: 20px;
+          height: 20px;
+          background-size: cover;
+          background-position: center;
+          margin-right: $spacing-xs;
+        }
+      }
+    }
+    
+    // 재료 입력
+    .ingredients-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+      margin-bottom: $spacing-sm;
+      
+      .ingredient-item {
+        background-color: $primary-light;
+        opacity: $opacity-light;
+        border-radius: $border-radius-sm;
+        width: 63px;
+        height: 63px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        
+        .circle-button {
+          width: 21px;
+          height: 21px;
+          background-color: white;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: $font-sm;
+          cursor: pointer;
+        }
+        
+        &.add-new {
+          cursor: pointer;
+        }
+      }
+    }
+    
+    // 요리 과정 입력
+    .steps-list {
+      margin-bottom: $spacing-md;
+      
+      .step-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: $spacing-md;
+        
+        .step-number {
+          width: 24px;
+          height: 24px;
+          background-color: $secondary-background;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: $font-md;
+          font-weight: 800;
+          margin-right: $spacing-md;
+          flex-shrink: 0;
+        }
+        
+        .step-input {
+          flex: 1;
+          
+          textarea {
+            width: 100%;
+            border: none;
+            background-color: $primary-light;
+            opacity: $opacity-light;
+            border-radius: $border-radius-md;
+            padding: $spacing-sm;
+            min-height: 80px;
+            resize: vertical;
+            font-size: $font-xs;
+            
+            &:focus {
+              outline: none;
+              border: 1px solid $primary-color;
+            }
+          }
+        }
+        
+        .step-controls {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: $spacing-xs;
+          
+          button {
+            background: none;
+            border: none;
+            color: $text-secondary;
+            cursor: pointer;
+            margin-left: $spacing-sm;
+            font-size: $font-sm;
+            
+            &:hover {
+              color: $primary-color;
+            }
+          }
+        }
+      }
+      
+      .add-step-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: $spacing-sm;
+        background-color: $primary-light;
+        opacity: $opacity-light;
+        border: none;
+        border-radius: $border-radius-md;
+        margin-top: $spacing-sm;
+        cursor: pointer;
+        font-size: $font-sm;
+        
+        &:hover {
+          opacity: $opacity-high;
+        }
+      }
+    }
+    
+    // 완성 음식 이미지 업로드
+    .completed-dish {
+      margin-bottom: $spacing-xl;
+      
+      .upload-area {
+        width: 100%;
+        height: 150px;
+        background-color: $primary-light;
+        opacity: $opacity-light;
+        border-radius: $border-radius-md;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        
+        .upload-icon {
+          width: 21px;
+          height: 21px;
+          border-radius: 50%;
+          background-color: $white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: $spacing-sm;
+        }
+        
+        .upload-text {
+          font-size: $font-md;
+          color: $white;
+          text-align: center;
+        }
+      }
+    }
+    
+    // 닉네임 공개 옵션
+    .nickname-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacing-xl;
+      
+      .toggle-switch {
+        width: 24px;
+        height: 14px;
+        background-color: $secondary-background;
+        border-radius: 7px;
+        position: relative;
+        margin-right: $spacing-sm;
+        cursor: pointer;
+        
+        &.active {
+          background-color: $primary-color;
+        }
+        
+        .toggle-knob {
+          width: 10px;
+          height: 10px;
+          background-color: $white;
+          border-radius: 50%;
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          transition: left 0.2s;
+          
+          &.active {
+            left: 12px;
+          }
+        }
+      }
+      
+      .option-label {
+        font-size: $font-md;
+        font-weight: 700;
+        color: $primary-color;
+      }
+    }
+  }
+  
+  // 등록 버튼
+  .submit-button {
+    width: 100%;
+    padding: $spacing-md;
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    border-radius: $border-radius-md;
+    font-size: $font-lg;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: $spacing-xl;
+    
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+} 
