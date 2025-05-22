@@ -300,6 +300,695 @@
             );
         }
 
+        // RecipeList 컴포넌트
+        function RecipeList({ recipes, navigateTo }) {
+            const [searchQuery, setSearchQuery] = React.useState('');
+            const [activeCategory, setActiveCategory] = React.useState('all');
+            const [activeSort, setActiveSort] = React.useState('rating');
+            
+            // 카테고리 필터링
+            const filteredRecipes = React.useMemo(() => {
+                let result = [...recipes];
+                
+                // 카테고리 필터링
+                if (activeCategory !== 'all') {
+                    result = result.filter(recipe => recipe.category === activeCategory);
+                }
+                
+                // 검색어 필터링
+                if (searchQuery) {
+                    const query = searchQuery.toLowerCase();
+                    result = result.filter(recipe => 
+                        recipe.name.toLowerCase().includes(query) || 
+                        recipe.description?.toLowerCase().includes(query) ||
+                        recipe.author.toLowerCase().includes(query)
+                    );
+                }
+                
+                // 정렬
+                switch (activeSort) {
+                    case 'newest':
+                        result.sort((a, b) => b.id - a.id);
+                        break;
+                    case 'oldest':
+                        result.sort((a, b) => a.id - b.id);
+                        break;
+                    case 'rating':
+                        result.sort((a, b) => b.rating - a.rating);
+                        break;
+                    case 'popularity':
+                        result.sort((a, b) => b.reviewCount - a.reviewCount);
+                        break;
+                    case 'cookTime':
+                        result.sort((a, b) => {
+                            const timeA = parseInt(a.cookTime) || 999;
+                            const timeB = parseInt(b.cookTime) || 999;
+                            return timeA - timeB;
+                        });
+                        break;
+                    default:
+                        break;
+                }
+                
+                return result;
+            }, [recipes, activeCategory, activeSort, searchQuery]);
+
+            return (
+                <div className="flex-grow">
+                    <header className="sticky top-0 z-10 bg-white shadow-sm">
+                        <div className="flex items-center p-4 pb-3">
+                            <h1 className="text-gray-900 text-xl font-bold leading-tight tracking-tight flex-1 text-center">레시피</h1>
+                            <button 
+                                className="flex items-center justify-center rounded-full h-10 w-10 bg-primary-color text-white hover:bg-[#c7222a]"
+                                onClick={() => navigateTo('create')}
+                            >
+                                <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="px-4 pb-4 pt-1">
+                            <label className="flex flex-col min-w-40 h-12 w-full">
+                                <div className="flex w-full flex-1 items-stretch rounded-lg h-full shadow-sm">
+                                    <div className="text-gray-500 flex border-none bg-gray-100 items-center justify-center pl-4 rounded-l-lg border-r-0">
+                                        <svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                                        </svg>
+                                    </div>
+                                    <input 
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 focus:outline-0 focus:ring-2 focus:ring-primary-color border-none bg-gray-100 focus:border-none h-full placeholder:text-gray-500 px-3 rounded-l-none border-l-0 text-base font-normal leading-normal"
+                                        placeholder="레시피, 재료 검색..." 
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
+                            </label>
+                        </div>
+                    </header>
+                    <main className="pb-24">
+                        <section className="px-4 pt-4 pb-2">
+                            <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeCategory === 'all' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveCategory('all')}
+                                >
+                                    전체
+                                </button>
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeCategory === 'breakfast' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveCategory('breakfast')}
+                                >
+                                    아침
+                                </button>
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeCategory === 'lunch' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveCategory('lunch')}
+                                >
+                                    점심
+                                </button>
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeCategory === 'dinner' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveCategory('dinner')}
+                                >
+                                    저녁
+                                </button>
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeCategory === 'dessert' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveCategory('dessert')}
+                                >
+                                    디저트
+                                </button>
+                            </div>
+                        </section>
+                        <section className="px-4 pt-3 pb-2">
+                            <h2 className="text-gray-900 text-lg font-semibold leading-tight tracking-tight mb-2">정렬 기준</h2>
+                            <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeSort === 'newest' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveSort('newest')}
+                                >
+                                    최신순
+                                </button>
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeSort === 'oldest' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveSort('oldest')}
+                                >
+                                    오래된순
+                                </button>
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeSort === 'rating' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveSort('rating')}
+                                >
+                                    평점순
+                                </button>
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeSort === 'popularity' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveSort('popularity')}
+                                >
+                                    인기순
+                                </button>
+                                <button 
+                                    className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 py-2 text-sm font-medium leading-normal transition-colors ${activeSort === 'cookTime' ? 'filter-chip-active' : 'filter-chip'}`}
+                                    onClick={() => setActiveSort('cookTime')}
+                                >
+                                    조리시간
+                                </button>
+                            </div>
+                        </section>
+                        <section className="px-4 pt-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                {filteredRecipes.map(recipe => (
+                                    <div 
+                                        key={recipe.id}
+                                        className="flex flex-col gap-2 pb-3 group cursor-pointer"
+                                        onClick={() => navigateTo('recipe-detail', recipe)}
+                                    >
+                                        <div 
+                                            className="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl shadow-md overflow-hidden transition-transform duration-300 group-hover:scale-105"
+                                            style={{ backgroundImage: `url("${recipe.image}")` }}
+                                        ></div>
+                                        <p className="text-gray-900 text-base font-semibold leading-tight">{recipe.name}</p>
+                                        <p className="text-xs text-gray-500">{recipe.cookTime} • {recipe.difficulty}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                    </main>
+                    <Navbar currentPage="recipes" navigateTo={navigateTo} />
+                </div>
+            );
+        }
+
+        // RecipeDetail 컴포넌트
+        function RecipeDetail({ recipe, navigateTo }) {
+            const [activeTab, setActiveTab] = React.useState('ingredients');
+            
+            if (!recipe) {
+                return (
+                    <div className="flex-grow flex items-center justify-center">
+                        <p className="text-gray-500">레시피를 찾을 수 없습니다.</p>
+                    </div>
+                );
+            }
+            
+            return (
+                <div className="flex-grow">
+                    <div className="sticky top-0 z-10 bg-white shadow-sm">
+                        <div className="flex items-center p-4">
+                            <button 
+                                className="flex items-center justify-center rounded-full h-10 w-10 hover:bg-gray-100"
+                                onClick={() => navigateTo('recipes')}
+                            >
+                                <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M224,128a8,8,0,0,1-8,8H59.31l58.34,58.34a8,8,0,0,1-11.31,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.31,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+                                </svg>
+                            </button>
+                            <h1 className="text-gray-900 text-xl font-bold leading-tight tracking-tight flex-1 text-center pr-10">레시피 상세</h1>
+                        </div>
+                    </div>
+                    
+                    <div 
+                        className="w-full h-64 bg-center bg-no-repeat bg-cover relative"
+                        style={{ backgroundImage: `url("${recipe.image}")` }}
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
+                            <h2 className="text-white text-2xl font-bold leading-tight">{recipe.name}</h2>
+                            <p className="text-white text-sm mt-1">By {recipe.author}</p>
+                            <div className="flex items-center mt-2">
+                                <div className="flex items-center">
+                                    <svg fill="#FFD700" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path>
+                                    </svg>
+                                    <span className="text-white ml-1">{recipe.rating.toFixed(1)}</span>
+                                </div>
+                                <span className="text-white mx-2">•</span>
+                                <span className="text-white">{recipe.reviewCount} 리뷰</span>
+                                <span className="text-white mx-2">•</span>
+                                <span className="text-white">{recipe.cookTime}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="p-4">
+                        <p className="text-gray-700">{recipe.description}</p>
+                        
+                        <div className="flex border-b border-gray-200 mt-6">
+                            <button 
+                                className={`pb-2 px-4 text-sm font-medium ${activeTab === 'ingredients' ? 'text-primary-color border-b-2 border-primary-color' : 'text-gray-500'}`}
+                                onClick={() => setActiveTab('ingredients')}
+                            >
+                                재료
+                            </button>
+                            <button 
+                                className={`pb-2 px-4 text-sm font-medium ${activeTab === 'steps' ? 'text-primary-color border-b-2 border-primary-color' : 'text-gray-500'}`}
+                                onClick={() => setActiveTab('steps')}
+                            >
+                                조리 과정
+                            </button>
+                        </div>
+                        
+                        {activeTab === 'ingredients' && (
+                            <div className="mt-4 space-y-2">
+                                <h3 className="text-lg font-semibold text-gray-900">재료</h3>
+                                <ul className="space-y-2">
+                                    {recipe.ingredients?.map((ingredient, index) => (
+                                        <li key={index} className="flex items-center">
+                                            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary-color rounded border-gray-300 focus:ring-primary-color custom-checkbox" />
+                                            <span className="ml-3 text-gray-700">{ingredient}</span>
+                                        </li>
+                                    )) || <p className="text-gray-500">재료 정보가 없습니다.</p>}
+                                </ul>
+                            </div>
+                        )}
+                        
+                        {activeTab === 'steps' && (
+                            <div className="mt-4 space-y-4">
+                                <h3 className="text-lg font-semibold text-gray-900">조리 과정</h3>
+                                <div className="space-y-4">
+                                    {recipe.steps?.map((step, index) => (
+                                        <div key={index} className="flex items-start">
+                                            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary-color text-white font-medium mr-3 flex-shrink-0">
+                                                {index + 1}
+                                            </div>
+                                            <div>
+                                                <p className="font-medium text-gray-900">{step.name}</p>
+                                                <p className="text-sm text-gray-500">{step.time}</p>
+                                            </div>
+                                        </div>
+                                    )) || <p className="text-gray-500">조리 과정 정보가 없습니다.</p>}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    
+                    <Navbar currentPage="recipes" navigateTo={navigateTo} />
+                </div>
+            );
+        }
+
+        // CreateRecipe 컴포넌트
+        function CreateRecipe({ addRecipe, navigateTo }) {
+            const [formData, setFormData] = React.useState({
+                name: '',
+                description: '',
+                cookTime: '',
+                difficulty: 'Easy',
+                category: 'dinner',
+                image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAYZzG17Pd1pNxnjSq7wtKwLFL3fKVt08TVSqvi-ThuDvqm1IfdkIsldeRL1myiyIqPnOVliYhDeKO2-1x1SeJGMTRTSUY2ZjsxalcBSd9rgspB1j7xwfKjUliq5gINMObPPGQXJQsXGUXRTCdKRtJXkpi-0oi8NrUZYGw3_fO-M7bvDTu1rui9Nww-Xvt3WRTjbprnLYoIeMyIKs077HJyH76tRW6kNAllA5T-K8b2LMmHtpcP3Zv_GZMw47AzJBlSWeC2SkJi6b0',
+                ingredients: [''],
+                steps: [{ name: '', time: '' }]
+            });
+            
+            const handleChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => ({ ...prev, [name]: value }));
+            };
+            
+            const handleIngredientChange = (index, value) => {
+                const newIngredients = [...formData.ingredients];
+                newIngredients[index] = value;
+                setFormData(prev => ({ ...prev, ingredients: newIngredients }));
+            };
+            
+            const addIngredient = () => {
+                setFormData(prev => ({
+                    ...prev,
+                    ingredients: [...prev.ingredients, '']
+                }));
+            };
+            
+            const removeIngredient = (index) => {
+                const newIngredients = [...formData.ingredients];
+                newIngredients.splice(index, 1);
+                setFormData(prev => ({ ...prev, ingredients: newIngredients }));
+            };
+            
+            const handleStepChange = (index, field, value) => {
+                const newSteps = [...formData.steps];
+                newSteps[index] = { ...newSteps[index], [field]: value };
+                setFormData(prev => ({ ...prev, steps: newSteps }));
+            };
+            
+            const addStep = () => {
+                setFormData(prev => ({
+                    ...prev,
+                    steps: [...prev.steps, { name: '', time: '' }]
+                }));
+            };
+            
+            const removeStep = (index) => {
+                const newSteps = [...formData.steps];
+                newSteps.splice(index, 1);
+                setFormData(prev => ({ ...prev, steps: newSteps }));
+            };
+            
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                
+                // 유효성 검사
+                if (!formData.name || !formData.description || !formData.cookTime) {
+                    alert('필수 항목을 모두 입력해주세요.');
+                    return;
+                }
+                
+                // 빈 재료 및 단계 제거
+                const cleanedIngredients = formData.ingredients.filter(i => i.trim() !== '');
+                const cleanedSteps = formData.steps.filter(s => s.name.trim() !== '');
+                
+                const newRecipe = {
+                    ...formData,
+                    ingredients: cleanedIngredients,
+                    steps: cleanedSteps
+                };
+                
+                addRecipe(newRecipe);
+            };
+            
+            return (
+                <div className="flex-grow">
+                    <div className="sticky top-0 z-10 bg-white shadow-sm">
+                        <div className="flex items-center p-4">
+                            <button 
+                                className="flex items-center justify-center rounded-full h-10 w-10 hover:bg-gray-100"
+                                onClick={() => navigateTo('home')}
+                            >
+                                <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M224,128a8,8,0,0,1-8,8H59.31l58.34,58.34a8,8,0,0,1-11.31,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.31,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+                                </svg>
+                            </button>
+                            <h1 className="text-gray-900 text-xl font-bold leading-tight tracking-tight flex-1 text-center pr-10">새 레시피</h1>
+                        </div>
+                    </div>
+                    
+                    <div className="p-4 pb-24">
+                        <form onSubmit={handleSubmit}>
+                            <div className="space-y-6">
+                                <div>
+                                    <label htmlFor="name" className="form-label">레시피 이름</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        className="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-color focus:ring-primary-color"
+                                        placeholder="레시피 이름을 입력하세요"
+                                        required
+                                    />
+                                </div>
+                                
+                                <div>
+                                    <label htmlFor="description" className="form-label">설명</label>
+                                    <textarea
+                                        id="description"
+                                        name="description"
+                                        value={formData.description}
+                                        onChange={handleChange}
+                                        rows="3"
+                                        className="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-color focus:ring-primary-color"
+                                        placeholder="레시피에 대한 간단한 설명을 입력하세요"
+                                        required
+                                    ></textarea>
+                                </div>
+                                
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label htmlFor="cookTime" className="form-label">조리 시간</label>
+                                        <input
+                                            type="text"
+                                            id="cookTime"
+                                            name="cookTime"
+                                            value={formData.cookTime}
+                                            onChange={handleChange}
+                                            className="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-color focus:ring-primary-color"
+                                            placeholder="예: 30 min"
+                                            required
+                                        />
+                                    </div>
+                                    
+                                    <div>
+                                        <label htmlFor="difficulty" className="form-label">난이도</label>
+                                        <select
+                                            id="difficulty"
+                                            name="difficulty"
+                                            value={formData.difficulty}
+                                            onChange={handleChange}
+                                            className="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-color focus:ring-primary-color"
+                                        >
+                                            <option value="Easy">쉬움</option>
+                                            <option value="Medium">보통</option>
+                                            <option value="Hard">어려움</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label htmlFor="category" className="form-label">카테고리</label>
+                                    <select
+                                        id="category"
+                                        name="category"
+                                        value={formData.category}
+                                        onChange={handleChange}
+                                        className="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-color focus:ring-primary-color"
+                                    >
+                                        <option value="breakfast">아침</option>
+                                        <option value="lunch">점심</option>
+                                        <option value="dinner">저녁</option>
+                                        <option value="dessert">디저트</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <label className="form-label mb-0">재료</label>
+                                        <button
+                                            type="button"
+                                            onClick={addIngredient}
+                                            className="text-primary-color hover:text-[#c7222a] text-sm font-medium"
+                                        >
+                                            + 재료 추가
+                                        </button>
+                                    </div>
+                                    
+                                    <div className="space-y-2">
+                                        {formData.ingredients.map((ingredient, index) => (
+                                            <div key={index} className="flex items-center">
+                                                <input
+                                                    type="text"
+                                                    value={ingredient}
+                                                    onChange={(e) => handleIngredientChange(index, e.target.value)}
+                                                    className="form-input flex-1 rounded-lg border-gray-300 shadow-sm focus:border-primary-color focus:ring-primary-color"
+                                                    placeholder={`재료 ${index + 1}`}
+                                                />
+                                                {formData.ingredients.length > 1 && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeIngredient(index)}
+                                                        className="ml-2 text-gray-400 hover:text-gray-600"
+                                                    >
+                                                        <svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+                                                        </svg>
+                                                    </button>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <label className="form-label mb-0">조리 과정</label>
+                                        <button
+                                            type="button"
+                                            onClick={addStep}
+                                            className="text-primary-color hover:text-[#c7222a] text-sm font-medium"
+                                        >
+                                            + 단계 추가
+                                        </button>
+                                    </div>
+                                    
+                                    <div className="space-y-4">
+                                        {formData.steps.map((step, index) => (
+                                            <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <h4 className="font-medium text-gray-900">단계 {index + 1}</h4>
+                                                    {formData.steps.length > 1 && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => removeStep(index)}
+                                                            className="text-gray-400 hover:text-gray-600"
+                                                        >
+                                                            <svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+                                                            </svg>
+                                                        </button>
+                                                    )}
+                                                </div>
+                                                
+                                                <div className="space-y-2">
+                                                    <input
+                                                        type="text"
+                                                        value={step.name}
+                                                        onChange={(e) => handleStepChange(index, 'name', e.target.value)}
+                                                        className="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-color focus:ring-primary-color"
+                                                        placeholder="단계 설명"
+                                                    />
+                                                    
+                                                    <input
+                                                        type="text"
+                                                        value={step.time}
+                                                        onChange={(e) => handleStepChange(index, 'time', e.target.value)}
+                                                        className="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-color focus:ring-primary-color"
+                                                        placeholder="소요 시간 (예: 10 min)"
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                
+                                <div className="pt-4">
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-primary-color hover:bg-[#c7222a] text-white font-medium py-3 px-4 rounded-lg shadow-sm transition-colors"
+                                    >
+                                        레시피 등록하기
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <Navbar currentPage="create" navigateTo={navigateTo} />
+                </div>
+            );
+        }
+
+        // Profile 컴포넌트
+        function Profile({ user, recipes, navigateTo }) {
+            const [activeTab, setActiveTab] = React.useState('recipes');
+            
+            return (
+                <div className="flex-grow">
+                    <div className="sticky top-0 z-10 bg-white shadow-sm">
+                        <div className="flex items-center p-4">
+                            <button 
+                                className="flex items-center justify-center rounded-full h-10 w-10 hover:bg-gray-100"
+                                onClick={() => navigateTo('home')}
+                            >
+                                <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M224,128a8,8,0,0,1-8,8H59.31l58.34,58.34a8,8,0,0,1-11.31,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.31,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+                                </svg>
+                            </button>
+                            <h1 className="text-gray-900 text-xl font-bold leading-tight tracking-tight flex-1 text-center pr-10">프로필</h1>
+                        </div>
+                    </div>
+                    
+                    <div className="bg-white">
+                        <div className="flex flex-col items-center pt-6 pb-8">
+                            <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
+                                <img 
+                                    src={user.profileImage} 
+                                    alt={user.displayName} 
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <h2 className="text-xl font-bold text-gray-900">{user.displayName}</h2>
+                            <p className="text-gray-500 text-sm">@{user.username} • {user.joinedYear}년 가입</p>
+                            
+                            <div className="flex justify-center gap-6 mt-6">
+                                <div className="flex flex-col items-center">
+                                    <p className="text-lg font-bold text-gray-900">{user.recipeCount}</p>
+                                    <p className="text-sm text-gray-500">레시피</p>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <p className="text-lg font-bold text-gray-900">{user.likesCount}</p>
+                                    <p className="text-sm text-gray-500">좋아요</p>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <p className="text-lg font-bold text-gray-900">{user.followersCount}</p>
+                                    <p className="text-sm text-gray-500">팔로워</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="border-t border-gray-200">
+                            <div className="flex">
+                                <button 
+                                    className={`flex-1 py-3 text-sm font-medium ${activeTab === 'recipes' ? 'text-primary-color border-b-2 border-primary-color' : 'text-gray-500'}`}
+                                    onClick={() => setActiveTab('recipes')}
+                                >
+                                    내 레시피
+                                </button>
+                                <button 
+                                    className={`flex-1 py-3 text-sm font-medium ${activeTab === 'saved' ? 'text-primary-color border-b-2 border-primary-color' : 'text-gray-500'}`}
+                                    onClick={() => setActiveTab('saved')}
+                                >
+                                    저장됨
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="p-4 pb-24">
+                        {activeTab === 'recipes' && (
+                            <div>
+                                {recipes.length > 0 ? (
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {recipes.map(recipe => (
+                                            <div 
+                                                key={recipe.id}
+                                                className="flex flex-col gap-2 pb-3 group cursor-pointer"
+                                                onClick={() => navigateTo('recipe-detail', recipe)}
+                                            >
+                                                <div 
+                                                    className="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl shadow-md overflow-hidden transition-transform duration-300 group-hover:scale-105"
+                                                    style={{ backgroundImage: `url("${recipe.image}")` }}
+                                                ></div>
+                                                <p className="text-gray-900 text-base font-semibold leading-tight">{recipe.name}</p>
+                                                <p className="text-xs text-gray-500">{recipe.cookTime} • {recipe.difficulty}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center py-12">
+                                        <svg fill="currentColor" height="48px" viewBox="0 0 256 256" width="48px" xmlns="http://www.w3.org/2000/svg" className="text-gray-300 mb-4">
+                                            <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                                        </svg>
+                                        <p className="text-gray-500 text-center mb-2">아직 작성한 레시피가 없습니다.</p>
+                                        <button 
+                                            className="text-primary-color font-medium"
+                                            onClick={() => navigateTo('create')}
+                                        >
+                                            새 레시피 작성하기
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                        
+                        {activeTab === 'saved' && (
+                            <div className="flex flex-col items-center justify-center py-12">
+                                <svg fill="currentColor" height="48px" viewBox="0 0 256 256" width="48px" xmlns="http://www.w3.org/2000/svg" className="text-gray-300 mb-4">
+                                    <path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path>
+                                </svg>
+                                <p className="text-gray-500 text-center mb-2">저장한 레시피가 없습니다.</p>
+                                <button 
+                                    className="text-primary-color font-medium"
+                                    onClick={() => navigateTo('recipes')}
+                                >
+                                    레시피 둘러보기
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    
+                    <Navbar currentPage="profile" navigateTo={navigateTo} />
+                </div>
+            );
+        }
+
         // App 컴포넌트
         function App() {
             const [currentPage, setCurrentPage] = React.useState('home');
@@ -401,7 +1090,11 @@
             return (
                 <RecipeContext.Provider value={{ recipes, setRecipes, user, setUser }}>
                     <div className="relative flex size-full min-h-screen flex-col justify-between overflow-x-hidden">
-                        <Home recipes={recipes} navigateTo={navigateTo} />
+                        {currentPage === 'home' && <Home recipes={recipes} navigateTo={navigateTo} />}
+                        {currentPage === 'recipes' && <RecipeList recipes={recipes} navigateTo={navigateTo} />}
+                        {currentPage === 'recipe-detail' && <RecipeDetail recipe={currentRecipe} navigateTo={navigateTo} />}
+                        {currentPage === 'create' && <CreateRecipe addRecipe={addRecipe} navigateTo={navigateTo} />}
+                        {currentPage === 'profile' && <Profile user={user} recipes={recipes.filter(r => r.author === user.displayName)} navigateTo={navigateTo} />}
                     </div>
                 </RecipeContext.Provider>
             );
